@@ -1,0 +1,31 @@
+version: '3.6'
+services:
+  my-db:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=root
+    networks:
+      - backend
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./docker_postgres_init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql
+
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - my-db
+    networks:
+      - backend
+    ports:
+      - "1323:1323"
+
+# Networks to be created to facilitate communication between containers
+networks:
+  backend:
+
