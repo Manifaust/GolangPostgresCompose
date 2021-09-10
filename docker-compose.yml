@@ -7,8 +7,6 @@ services:
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=root
       - POSTGRES_DB=root
-    networks:
-      - backend
     ports:
       - "5432:5432"
     volumes:
@@ -20,12 +18,5 @@ services:
       dockerfile: Dockerfile
     depends_on:
       - my-db
-    networks:
-      - backend
     ports:
       - "1323:1323"
-
-# Networks to be created to facilitate communication between containers
-networks:
-  backend:
-
